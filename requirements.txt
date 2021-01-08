@@ -3,3 +3,4 @@ pandas
 nltk
 tensorflow
 sklearn
+emoji

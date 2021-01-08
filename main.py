@@ -4,6 +4,7 @@ os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import re
 import string
 import nltk
+import emoji
 import collections
 import numpy as np
 import pandas as pd
@@ -27,7 +28,7 @@ output_dim = 32
 stopword = nltk.corpus.stopwords.words('english')
 ps = nltk.PorterStemmer()
 all_words = []
-
+emoji_reg = emoji.get_emoji_regexp()
 
 def read_file(name):
     """
@@ -57,6 +58,9 @@ def sanitize_text(text):
         text = re.sub(r'(https://)([A-Za-z0-9./]+)', '', text)
         # replace mentions
         text = re.sub(r'(@\w+)', '', text)
+        # replace emojis
+        text = emoji_reg.sub(u'', text)
+
         text_c = re.sub('[0-9]+', '', text)
         text_pc = "".join([word.lower() for word in text_c if word not in string.punctuation])
         tokens = word_tokenize(text_pc)
@@ -119,7 +123,7 @@ def create_model():
     model.add(layers.Dense(1, activation='sigmoid'))
 
     adam = Adam(learning_rate=0.0005)
-    model.compile(loss='binary_crossentropy', optimizer='adam', metrics=['accuracy'])
+    model.compile(loss='binary_crossentropy', optimizer=adam, metrics=['accuracy'])
     return model
 
 

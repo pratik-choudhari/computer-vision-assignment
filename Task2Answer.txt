@@ -1,0 +1,14 @@
+Every video collected will be associated with information such as tags, location, caption, etc. This metadata available has significant importance in recommendation engine after video classification. To tag the videos, we would process every fifth frame(or as desired) instead of processing all of the frames, this has two advantages, first, this will reduce the computation power required and second, it will save time required for processing. The content will be classified by AI using video tagging techniques such as Multiresolution CNNs and DGCNs. Matching Video resolutions by adding padding to the video will be bad idea because lower resolution videos will be blurred and thus results in loss of data, rather, there should be a multiclassifier system to process a range of resolutions of videos; in this way data is used effectively and results are not compromised too.
+
+Solution Development:
+1. Video data can be stored in AWS S3 buckets, which maintains data redundancy and has high availibility.
+2. Amazon SageMaker service helps in development of machine learning applications and can be easily connected to AWS S3.
+3. Deployment of this service can be easily managed using AWS Route53, AWS gateway and handle traffic using AWS load balancer.
+
+Feasibility:
+AWS services can be easily procured and maintaining is streamlined too. AWS is pricier than GCP, in tight budget constraints AWS can be preferred over GCP, GCP has cloud storage, cloud dataflow and cloud ML engine to develop ML applications. Provided the premises, Feasibility should not be a limiting factor.
+
+Challenges:
+1. There can be overloading of data flowing into the tagging system which could be managed by creating backup systems which will also be required to ensure continuous deployment.
+2. Data might be broken or unprocessable such as wrong encoding, noisy and blurry videos.
+3. System needs to be monitored for performance as time passes like with time video resolutions tend to increase.
